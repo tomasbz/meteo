@@ -11,4 +11,12 @@
 |
 */
 
+/**
+ * Dashboard
+ */
 Route::get('/', 'DashboardController@index');
+
+/**
+ * Subscriber
+ */
+Route::post('/subscriber', 'SubscriberController@store');

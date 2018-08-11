@@ -20,17 +20,17 @@
             {{--subscription form--}}
             <div class="col-md-6">
                 <h2 class="pb-3">Subscription</h2>
-                <form>
+                {!! Form::open(['action' => 'SubscriberController@store', 'method' => 'POST']) !!}
                     <div class="form-group">
-                        <label for="name">Name</label>
-                        <input type="text" class="form-control" id="name">
+                        {{Form::label('name', 'Name')}}
+                        {{Form::text('name', '', ['class' => 'form-control'])}}
                     </div>
                     <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" class="form-control" id="email">
+                        {{Form::label('email', 'Email')}}
+                        {{Form::email('email', '', ['class' => 'form-control'])}}
                     </div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </form>
+                    {{Form::submit('Submit', ['class' => 'btn btn-primary'])}}
+                {!! Form::close() !!}
             </div>
         </div>
     </div>
