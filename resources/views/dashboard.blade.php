@@ -8,10 +8,12 @@
                 <h2 class="pb-3">Weather metrics</h2>
                 @if(count($weatherMetrics) > 0)
                     <ul class="list-group pr-5 mb-5">
-                        <li class="list-group-item d-flex justify-content-between align-items-center mb-1">
-                            Title
-                            <span class="badge badge-primary badge-pill">val</span>
-                        </li>
+                        @foreach($weatherMetrics as $key => $metric)
+                            <li class="list-group-item d-flex justify-content-between align-items-center mb-1">
+                                {{$metric['title']}}
+                                <span class="badge badge-primary badge-pill">{!!$metric['value']!!}</span>
+                            </li>
+                        @endforeach
                     </ul>
                 @else
                     <p class="mb-5">No data</p>
