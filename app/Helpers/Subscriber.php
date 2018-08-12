@@ -3,6 +3,7 @@
 namespace App\Helpers;
 
 use App\Subscriber as SubscriberModel;
+use Illuminate\Support\Facades\Log;
 
 class Subscriber
 {
@@ -43,12 +44,14 @@ class Subscriber
             $subscriber->wind_min = true;
             $subscriber->save();
             $notified = $subscriber;
+            Log::info('WindSpeed below '.config('openweathermap.wind_speed_limit').'m/s. Subscriber '.$subscriber->email.' has been notified.');
         }
 
         if($windLimit['max'] && !$subscriber->wind_max){
             $subscriber->wind_max = true;
             $subscriber->save();
             $notified = $subscriber;
+            Log::info('WindSpeed above '.config('openweathermap.wind_speed_limit').'m/s. Subscriber '.$subscriber->email.' has been notified.');
         }
 
         return $notified;
