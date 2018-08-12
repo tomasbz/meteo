@@ -13,8 +13,8 @@ class AddWindMinMaxToSubscribers extends Migration
     public function up()
     {
         Schema::table('subscribers', function ($table) {
-            $table->boolean('wind_min');
-            $table->boolean('wind_max');
+            $table->boolean('wind_min')->default(false);
+            $table->boolean('wind_max')->default(false);
         });
     }
 
