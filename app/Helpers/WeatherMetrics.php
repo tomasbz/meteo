@@ -81,4 +81,36 @@ class WeatherMetrics
 
         return $belowLimit;
     }
+
+    /**
+     * Check if wind speed is over limit or below
+     *
+     * @return array
+     */
+    public static function checkWindLimit()
+    {
+        $wind = ['min' => false, 'max' => false];
+
+        $weatherMetrics = self::getMetrics();
+        $lastWindSpeed = Cache::get('last_wind_speed');
+        $windSpeedLimit = config('openweathermap.wind_speed_limit');
+        if($weatherMetrics){
+            $windSpeed = $weatherMetrics->wind->speed->getValue();
+
+            // wind speed increased above $windSpeedLimit
+            if(WeatherMetrics::windSpeedOverLimit($windSpeed, $windSpeedLimit, $lastWindSpeed)){
+                $wind['max'] = true;
+            }
+
+            // wind speed dropped below $windSpeedLimit
+            if(WeatherMetrics::windSpeedBelowLimit($windSpeed, $windSpeedLimit, $lastWindSpeed)){
+                $wind['min'] = true;
+            }
+
+            // set previous wind speed value
+            Cache::forever('last_wind_speed', $windSpeed);
+        }
+
+        return $wind;
+    }
 }
