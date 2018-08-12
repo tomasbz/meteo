@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\city;
-use App\subscriber;
+use App\City;
+use App\Helpers\Subscriber as SubscriberHelper;
+use App\Subscriber;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Response;
 
 class SubscriberController extends Controller
 {
@@ -28,5 +30,17 @@ class SubscriberController extends Controller
         $subscriber->save();
 
         return redirect('/')->with('success', 'Thank you for subscribing.');
+    }
+
+    /**
+     * CRON endpoint to sent subscribers wind limit notifications
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function sendWindLimitNotifications()
+    {
+        return Response::make([
+            'notifiedSubscribers' => SubscriberHelper::sendWindLimitNotifications(),
+        ]);
     }
 }

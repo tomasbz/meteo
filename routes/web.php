@@ -20,3 +20,4 @@ Route::get('/', 'DashboardController@index');
  * Subscriber
  */
 Route::post('/subscriber', 'SubscriberController@store');
+Route::get('/subscribers/sendWindLimitNotifications', 'SubscriberController@sendWindLimitNotifications');
